@@ -1,1 +1,375 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nova Sector — PvP</title>
+  <meta name="description" content="Nova Sector — moderní PvP server" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0A0A0B; --card:rgba(255,255,255,0.04); --muted:#BFC3D6; --white:#FFF; --purple:#8B5CF6; --purple-2:#7C3AED; --radius:14px; }
+    *{box-sizing:border-box} html,body{height:100%} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#08080A 0%,#0A0A0B 100%);color:var(--white)}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:rgba(10,10,11,0.7);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--purple-2))}
+    .brand .name{font-size:18px;letter-spacing:0.5px}
+    .name .nova{color:#fff}.name .sector{background:linear-gradient(90deg,var(--purple),var(--purple-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .navlinks{display:flex;gap:16px;align-items:center}
+    .navlinks a{color:var(--muted);font-weight:600;padding:8px 10px;border-radius:10px}
+    .navlinks a:hover,.navlinks a.active{color:#fff;background:rgba(139,92,246,0.12)}
+    .cta{background:linear-gradient(90deg,var(--purple),var(--purple-2));border:none;color:#fff;padding:10px 16px;border-radius:12px;font-weight:800;box-shadow:0 10px 30px rgba(139,92,246,0.25);cursor:pointer}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);color:#E9E0FF;padding:6px 10px;border-radius:999px;font-size:12px}
+    main{display:block}
+    .hero{position:relative}
+    .hero .banner{position:absolute;inset:0;background:url('https://i.postimg.cc/zfsP6WMd/upload-2019-10-8-10-4-54.png') center/cover no-repeat;opacity:0.28}
+    .hero .overlay{position:relative;padding:96px 0 56px}
+    .hero h1{font-size:56px;margin:0;background:linear-gradient(90deg,var(--purple),var(--purple-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{color:var(--muted);font-size:18px;margin:14px 0 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:16px;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+    h2{margin:0 0 12px 0}
+    .muted{color:var(--muted)}
+    .stack{display:flex;flex-direction:column;gap:12px}
+    .row{display:flex;gap:10px;align-items:center}
+    .btn{border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}
+    .btn:hover{background:rgba(255,255,255,0.08)}
+    .danger{background:linear-gradient(90deg,#ef4444,#b91c1c);border:none;color:#fff}
+    .section{padding:48px 0}
+    .badge{font-size:12px;padding:4px 10px;border-radius:999px}
+    .badge-open{background:rgba(16,185,129,0.22);color:#34D399}
+    .badge-closed{background:rgba(239,68,68,0.22);color:#F87171}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);z-index:1000}
+    .modal .panel{background:rgba(14,14,16,0.98);border:1px solid rgba(255,255,255,0.06);border-radius:14px;box-shadow:0 16px 50px rgba(0,0,0,0.5);padding:20px;width:680px;max-width:calc(100% - 24px)}
+    input,select,textarea{width:100%;padding:12px;border-radius:10px;background:#0E0E10;color:#fff;border:1px solid rgba(255,255,255,0.08)}
+    textarea{resize:vertical}
+    footer{padding:40px 0;color:#9AA0B5}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><div class="logo"></div><div class="name"><span class="nova">Nova</span> <span class="sector">Sector</span></div></div>
+      <nav class="navlinks">
+        <a href="#home" class="active" data-link>Home</a>
+        <a href="#rules" data-link>Rules</a>
+        <a href="#help" data-link>Help</a>
+        <a href="#account" data-link class="cta">Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero section">
+      <div class="banner"></div>
+      <div class="wrap overlay">
+        <span class="pill">PvP • KitPvP • Knockback • Duels</span>
+        <h1>Fight. Win. Dominate.</h1>
+        <p>Moderní Minecraft PvP zážitek s bleskovou podporou a čistým UX.</p>
+        <div class="row" style="margin-top:18px">
+          <button class="cta" onclick="navigator.clipboard.writeText(document.getElementById('srvip').textContent).then(()=>alert('IP zkopírována'))">Play now</button>
+          <span class="muted">IP: <strong id="srvip">play.novasector.cz</strong></span>
+        </div>
+        <div class="grid" style="margin-top:28px">
+          <div class="card"><h3>KitPvP</h3><p class="muted">Intenzivní souboje, férové kity, stabilní hitreg.</p></div>
+          <div class="card"><h3>Knockback</h3><p class="muted">Laděná KB metrika pro čisté souboje bez RNG.</p></div>
+          <div class="card"><h3>Duels</h3><p class="muted">Sólové i týmové duely s žebříčky a replay.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules" class="section" style="display:none">
+      <div class="wrap">
+        <h2>Rules</h2>
+        <p class="muted">Základní pravidla serveru. (Doplňte podle potřeby.)</p>
+        <div class="stack">
+          <div class="card">Žádné cheaty ani exploity.</div>
+          <div class="card">Respektuj ostatní hráče a staff.</div>
+          <div class="card">Nespamuj a nevulgárně se nevyjadřuj.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="help" class="section" style="display:none">
+      <div class="wrap">
+        <h2>Help</h2>
+        <p class="muted">Potřebuješ pomoc? Vytvoř ticket v sekci Tickets nebo kontaktuj staff na Discordu.</p>
+        <div class="stack" style="margin-top:12px">
+          <a class="cta" href="#tickets" data-link>Otevřít Tickets</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="tickets" class="section">
+      <div class="wrap">
+        <h2>Tickets</h2>
+        <p class="muted">Vytvoř požadavek na podporu, sleduj průběh a komunikuj přímo se supportem.</p>
+        <div class="stack" style="margin-top:12px">
+          <button id="btnCreateTicket" class="cta" style="width:100%;padding:16px;font-size:16px">Create Ticket</button>
+          <div id="myTicketNotice"></div>
+          <div class="grid">
+            <div class="card"><h3>Active</h3><div id="myTicketsOpen" class="stack"></div></div>
+            <div class="card"><h3>Closed</h3><div id="myTicketsClosed" class="stack"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="account" class="section" style="display:none">
+      <div class="wrap">
+        <h2>Account</h2>
+        <p id="acc_status" class="muted">Nejsi přihlášen.</p>
+        <div class="row" style="gap:10px;margin-top:12px">
+          <button id="btnLoginDiscord" class="cta">Login with Discord</button>
+          <button id="btnLogoutDiscord" class="btn">Logout</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="smaz" class="section" style="display:none">
+      <div class="wrap">
+        <h2>Smaz ticket</h2>
+        <p class="muted">Zavře tvůj aktuálně otevřený ticket.</p>
+        <button id="btnCloseMyTicket" class="btn danger" style="margin-top:12px">Zavřít můj otevřený ticket</button>
+        <div id="smaz_result" class="muted" style="margin-top:10px"></div>
+      </div>
+    </section>
+
+    <section id="admin" class="section">
+      <div class="wrap">
+        <h2>Admin</h2>
+        <p class="muted">Pro autorizovaný personál.</p>
+        <div class="grid" style="margin-top:12px">
+          <div class="card"><h3>Tickets</h3><div id="adminOpen" class="stack"></div></div>
+          <div class="card"><h3>Ticket History</h3><div id="adminClosed" class="stack"></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalCreate" class="modal"><div class="panel">
+    <h3 style="margin:0 0 12px 0">Create Ticket</h3>
+    <div class="stack">
+      <input id="ct_nick" placeholder="In-game Nickname" />
+      <input id="ct_title" placeholder="Title" />
+      <textarea id="ct_desc" rows="6" placeholder="Describe your issue"></textarea>
+      <div class="row" style="justify-content:flex-end"><button class="btn" id="ct_cancel">Cancel</button><button class="cta" id="ct_submit">Create</button></div>
+    </div>
+  </div></div>
+
+  <div id="modalChat" class="modal"><div class="panel">
+    <div class="row" style="justify-content:space-between"><h3 id="ch_title" style="margin:0">Ticket</h3><button class="btn" id="ch_closex">✕</button></div>
+    <div id="ch_messages" class="stack" style="max-height:48vh;overflow:auto;margin-top:10px"></div>
+    <div id="ch_compose" class="row" style="margin-top:10px"><input id="ch_input" placeholder="Write a message" /><button class="cta" id="ch_send">Send</button></div>
+  </div></div>
+
+  <footer>
+    <div class="wrap row" style="justify-content:space-between">
+      <span>© Nova Sector</span>
+      <span class="row" style="gap:12px"><a href="#home" class="muted">Home</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const DISCORD_CLIENT_ID = '1432793619445842020';
+    const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+    let currentUserId = null;
+    let currentRoles = [];
+    let openTicketId = null;
+    let currentUserName = null;
+    let currentUserAvatar = null;
+
+    function navActivate(){
+      const hash = location.hash || '#home';
+      document.querySelectorAll('[data-link]').forEach(a=>a.classList.remove('active'));
+      const active = Array.from(document.querySelectorAll('[data-link]')).find(a=>a.getAttribute('href')===hash);
+      if(active) active.classList.add('active');
+      document.querySelectorAll('main section').forEach(s=>s.style.display='none');
+      const sec = document.querySelector(hash);
+      if(sec) sec.style.display = 'block';
+    }
+    window.addEventListener('hashchange', navActivate);
+
+    function authHeaders(){ const tk = localStorage.getItem('discord_token'); return tk?{Authorization:`Bearer ${tk}`}:{}};
+    function requireAuth(){ const tk = localStorage.getItem('discord_token'); if(!tk){ alert('Přihlas se přes Discord.'); return false;} return true; }
+
+    async function apiGetTickets(params){ const qs = new URLSearchParams(params||{}).toString(); const r = await fetch(`/api/tickets${qs?`?${qs}`:''}`,{headers:authHeaders()}); if(!r.ok) return []; return await r.json(); }
+    async function apiGetTicket(id){ const r = await fetch(`/api/tickets/${id}`,{headers:authHeaders()}); if(!r.ok) return null; return await r.json(); }
+    async function apiCreateTicket(body){ const r = await fetch('/api/tickets',{method:'POST',headers:{'Content-Type':'application/json',...authHeaders()},body:JSON.stringify(body)}); if(!r.ok){ const t=await r.text().catch(()=> 'Create failed'); throw new Error(t);} return await r.json(); }
+    async function apiPostMessage(id,text){ const r = await fetch(`/api/tickets/${id}/messages`,{method:'POST',headers:{'Content-Type':'application/json',...authHeaders()},body:JSON.stringify({text})}); if(!r.ok){ const t=await r.text().catch(()=> 'Message failed'); throw new Error(t);} return await r.json(); }
+    async function apiCloseTicket(id){ const r = await fetch(`/api/tickets/${id}/close`,{method:'POST',headers:authHeaders()}); if(!r.ok){ const t=await r.text().catch(()=> 'Close failed'); throw new Error(t);} return await r.json(); }
+
+    function startDiscordLogin(){
+      if(!DISCORD_CLIENT_ID){ alert('Chybí DISCORD_CLIENT_ID'); return; }
+      const p=new URLSearchParams({
+        client_id:DISCORD_CLIENT_ID,
+        redirect_uri:REDIRECT_URI,
+        response_type:'token',
+        scope:'identify'
+      });
+      location.href = `https://discord.com/oauth2/authorize?${p.toString()}`;
+    }
+    async function handleDiscordCallback(){
+      // Authorization Code in query (?code=...)
+      const qs = new URLSearchParams(location.search);
+      const code = qs.get('code');
+      if(code){
+        try{
+          const r = await fetch('/api/auth/exchange-code',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ code, redirect_uri: REDIRECT_URI })
+          });
+          if(!r.ok){ const t=await r.text().catch(()=> 'Code exchange failed'); throw new Error(t); }
+          const data = await r.json();
+          const token = data.access_token;
+          const expires = Number(data.expires_in||0);
+          if(token){
+            localStorage.setItem('discord_token', token);
+            if(expires>0) localStorage.setItem('discord_token_expiry', String(Date.now()+expires*1000));
+            await loadDiscordUser();
+            updateAccountUI();
+            location.hash = '#account';
+          }
+        }catch(err){ alert(typeof err?.message==='string'? err.message : 'Přihlášení selhalo'); }
+        // Clean query string
+        history.replaceState({}, document.title, window.location.pathname + location.hash);
+        return;
+      }
+      // Legacy implicit flow fallback from hash (#access_token=...)
+      if(location.hash.includes('access_token')){
+        const h = new URLSearchParams(location.hash.substring(1));
+        const token = h.get('access_token');
+        const expires = Number(h.get('expires_in')||0);
+        if(token){
+          localStorage.setItem('discord_token',token);
+          localStorage.setItem('discord_token_expiry', String(Date.now()+expires*1000));
+          await loadDiscordUser();
+          updateAccountUI();
+          location.hash = '#account';
+        }
+        history.replaceState({}, document.title, window.location.pathname + location.hash);
+      }
+    }
+
+    async function loadIdentity(){ const tk = localStorage.getItem('discord_token'); if(!tk){ currentUserId=null; currentRoles=[]; currentUserName=null; currentUserAvatar=null; return; } try{ const r = await fetch('/api/auth/staff-check',{headers:{Authorization:`Bearer ${tk}`}}); if(r.ok){ const d=await r.json(); currentUserId=d.userId||null; currentRoles=Array.isArray(d.roles)?d.roles:[]; } }catch{} }
+
+    async function loadDiscordUser(){
+      const tk = localStorage.getItem('discord_token');
+      if(!tk){ currentUserName=null; currentUserAvatar=null; return; }
+      try{
+        const r = await fetch('https://discord.com/api/users/@me',{ headers:{ Authorization:`Bearer ${tk}` } });
+        if(!r.ok) return;
+        const u = await r.json();
+        const id = u.id;
+        const name = u.global_name || u.username || 'User';
+        const avatar = u.avatar ? `https://cdn.discordapp.com/avatars/${id}/${u.avatar}.png?size=32` : 'https://cdn.discordapp.com/embed/avatars/0.png';
+        currentUserName = name;
+        currentUserAvatar = avatar;
+      }catch{}
+    }
+
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+
+    async function renderMyTickets(){
+      const open = await apiGetTickets({status:'open',category:'Tickets'});
+      const closed = await apiGetTickets({status:'closed',category:'Tickets'});
+      const mineOpen = open.filter(t=> currentUserId && t.creatorId===currentUserId);
+      const mineClosed = closed.filter(t=> currentUserId && t.creatorId===currentUserId);
+      const n = document.getElementById('myTicketNotice');
+      n.innerHTML = mineOpen.length? `<div class="card" style="border-color:rgba(16,185,129,0.25);background:rgba(16,185,129,0.08)"><strong>📂 Máš otevřený ticket:</strong> <a href="#" data-open-ticket-id="${mineOpen[0].id}">#${mineOpen[0].id} – ${escapeHtml(mineOpen[0].problem)}</a></div>` : '';
+      const openEl = document.getElementById('myTicketsOpen');
+      const closedEl = document.getElementById('myTicketsClosed');
+      openEl.innerHTML = mineOpen.length? mineOpen.map(t=>
+        `<div class="card" data-ticket-id="${t.id}"><div class="row" style="justify-content:space-between"><h4 style="margin:0">${escapeHtml(t.problem)}</h4><span class="badge badge-open">Active</span></div><p class="muted">${escapeHtml(t.description||'')}</p><div class="muted" style="font-size:12px">#${t.id} • ${new Date(t.createdAt).toLocaleString()}</div></div>`
+      ).join('') : '<div class="muted">Nemáš žádné aktivní tickety.</div>';
+      closedEl.innerHTML = mineClosed.length? mineClosed.map(t=>
+        `<div class="card" data-ticket-id="${t.id}"><div class="row" style="justify-content:space-between"><h4 style="margin:0">${escapeHtml(t.problem)}</h4><span class="badge badge-closed">Closed</span></div><p class="muted">${escapeHtml(t.description||'')}</p><div class="muted" style="font-size:12px">#${t.id} • ${new Date(t.createdAt).toLocaleString()}</div></div>`
+      ).join('') : '<div class="muted">Nemáš žádné uzavřené tickety.</div>';
+      n.querySelector('[data-open-ticket-id]')?.addEventListener('click',(e)=>{e.preventDefault(); openTicketDetail(Number(e.currentTarget.getAttribute('data-open-ticket-id')));});
+      document.querySelectorAll('#myTicketsOpen [data-ticket-id],#myTicketsClosed [data-ticket-id]').forEach(card=>card.addEventListener('click',()=>openTicketDetail(Number(card.getAttribute('data-ticket-id')))));
+    }
+
+    async function renderAdmin(){
+      const open = await apiGetTickets({status:'open'});
+      const closed = await apiGetTickets({status:'closed'});
+      const openEl = document.getElementById('adminOpen');
+      const closedEl = document.getElementById('adminClosed');
+      const fmt = (t,closed)=>`<div class="card" data-ticket-id="${t.id}" style="cursor:pointer"><div class="row" style="justify-content:space-between"><h4 style="margin:0">${escapeHtml(t.problem)}</h4><span class="badge ${closed?'badge-closed':'badge-open'}">${closed?'Closed':'Active'}</span></div><p class="muted">By ${escapeHtml(t.nickname)} • #${t.id}</p><div class="row" style="justify-content:space-between"><span class="muted" style="font-size:12px">${new Date(t.createdAt).toLocaleString()}</span>${closed?'':`<button class="btn danger" data-close-id="${t.id}">Close</button>`}</div></div>`;
+      openEl.innerHTML = open.length? open.map(t=>fmt(t,false)).join('') : '<div class="muted">No open tickets.</div>';
+      closedEl.innerHTML = closed.length? closed.map(t=>fmt(t,true)).join('') : '<div class="muted">No closed tickets.</div>';
+      openEl.querySelectorAll('[data-ticket-id]').forEach(c=>c.addEventListener('click',()=>openTicketDetail(Number(c.getAttribute('data-ticket-id')))));
+      closedEl.querySelectorAll('[data-ticket-id]').forEach(c=>c.addEventListener('click',()=>openTicketDetail(Number(c.getAttribute('data-ticket-id')))));
+      openEl.querySelectorAll('[data-close-id]').forEach(b=>b.addEventListener('click',(e)=>{e.stopPropagation(); apiCloseTicket(Number(b.getAttribute('data-close-id'))).then(()=>{renderAdmin(); renderMyTickets();});}));
+    }
+
+    async function openTicketDetail(id){ const t = await apiGetTicket(id); if(!t){ alert('Ticket not found'); return; } openTicketId = id; document.getElementById('modalChat').style.display='flex'; document.getElementById('ch_title').textContent = `Ticket #${t.id}`; await renderChat(); }
+    function closeChat(){ document.getElementById('modalChat').style.display='none'; openTicketId=null; }
+    async function renderChat(){ if(!openTicketId) return; const t = await apiGetTicket(openTicketId); if(!t) return; const box = document.getElementById('ch_messages'); box.innerHTML = (t.messages||[]).map(m=>`<div class="card" style="background:rgba(255,255,255,0.03)"><div class="muted" style="font-size:12px">${escapeHtml(m.author)} • ${new Date(m.at).toLocaleString()}</div><div>${escapeHtml(m.text)}</div></div>`).join(''); box.scrollTop=box.scrollHeight; const canWrite = (t.status||'open')==='open'; document.getElementById('ch_compose').style.display = canWrite? 'flex':'none'; }
+
+    function openCreate(){ if(!requireAuth()) return; document.getElementById('modalCreate').style.display='flex'; }
+    function closeCreate(){ document.getElementById('modalCreate').style.display='none'; }
+
+    async function submitCreate(){ if(!requireAuth()) return; const nickname = document.getElementById('ct_nick').value.trim(); const problem = document.getElementById('ct_title').value.trim(); const description = document.getElementById('ct_desc').value.trim(); if(!nickname||!problem||!description){ alert('Vyplň všechna pole'); return; } try{ const t = await apiCreateTicket({ nickname, problem, description, category:'Tickets' }); closeCreate(); await renderMyTickets(); location.hash = '#tickets'; alert('Ticket byl vytvořen'); }catch(e){ alert(typeof e?.message==='string'? e.message : 'Create failed'); } }
+    function updateAccountUI(){
+      const tk = localStorage.getItem('discord_token');
+      const statusEl = document.getElementById('acc_status');
+      const btnLogin = document.getElementById('btnLoginDiscord');
+      const btnLogout = document.getElementById('btnLogoutDiscord');
+      if(statusEl){ statusEl.textContent = tk ? 'Jsi přihlášen.' : 'Nejsi přihlášen.'; }
+      if(btnLogin) btnLogin.style.display = tk? 'none':'inline-flex';
+      if(btnLogout) btnLogout.style.display = tk? 'inline-flex':'none';
+      const navAccount = document.querySelector('a[href="#account"][data-link]');
+      if(navAccount){
+        if(tk && currentUserName){
+          navAccount.innerHTML = `<span class="row" style="gap:8px;align-items:center"><img src="${currentUserAvatar||''}" alt="avatar" style="width:20px;height:20px;border-radius:999px;object-fit:cover"/><span>${currentUserName}</span></span>`;
+        }else{
+          navAccount.textContent = 'Account';
+        }
+      }
+    }
+
+    document.getElementById('btnCreateTicket').addEventListener('click',(e)=>{ e.preventDefault(); openCreate(); });
+    document.getElementById('ct_cancel').addEventListener('click',(e)=>{ e.preventDefault(); closeCreate(); });
+    document.getElementById('ct_submit').addEventListener('click',(e)=>{ e.preventDefault(); submitCreate(); });
+    document.getElementById('ch_closex').addEventListener('click',(e)=>{ e.preventDefault(); closeChat(); });
+    document.getElementById('ch_send').addEventListener('click', async (e)=>{ e.preventDefault(); if(!openTicketId) return; const input=document.getElementById('ch_input'); const text=input.value.trim(); if(!text) return; try{ await apiPostMessage(openTicketId, text); input.value=''; await renderChat(); }catch(err){ alert('Send failed'); } });
+
+    document.getElementById('btnLoginDiscord').addEventListener('click',(e)=>{ e.preventDefault(); startDiscordLogin(); });
+    const navAccount = document.querySelector('a[href="#account"][data-link]');
+    if(navAccount){
+      navAccount.addEventListener('click',(e)=>{
+        e.preventDefault();
+        const tk = localStorage.getItem('discord_token');
+        if(!tk) startDiscordLogin(); else location.hash = '#account';
+      });
+    }
+    document.getElementById('btnLogoutDiscord').addEventListener('click',(e)=>{ e.preventDefault(); localStorage.removeItem('discord_token'); localStorage.removeItem('discord_token_expiry'); currentUserName=null; currentUserAvatar=null; updateAccountUI(); alert('Byl jsi odhlášen.'); });
+    document.getElementById('btnCloseMyTicket').addEventListener('click', async (e)=>{
+      e.preventDefault();
+      if(!requireAuth()) return;
+      try{
+        await loadIdentity();
+        const open = await apiGetTickets({status:'open',category:'Tickets'});
+        const mineOpen = open.filter(t=> currentUserId && t.creatorId===currentUserId);
+        if(!mineOpen.length){ document.getElementById('smaz_result').textContent = 'Nemáš žádný otevřený ticket.'; return; }
+        await apiCloseTicket(mineOpen[0].id);
+        document.getElementById('smaz_result').textContent = `Ticket #${mineOpen[0].id} byl uzavřen.`;
+        await renderMyTickets();
+        await renderAdmin();
+      }catch(err){ document.getElementById('smaz_result').textContent = 'Nepodařilo se uzavřít ticket.'; }
+    });
+
+    function tick(){ renderMyTickets(); renderAdmin(); if(openTicketId) renderChat(); }
+
+    handleDiscordCallback();
+    (async ()=>{ await loadDiscordUser(); navActivate(); updateAccountUI(); })();
+  </script>
+</body>
+</html>
 
